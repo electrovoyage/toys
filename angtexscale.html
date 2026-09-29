@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Angled surface texture scale</title>
+        <meta name="description" content="Calculate texture scales for angled surfaces">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1>Angled texture scale</h1>
+
+        <label for="triangle_x"><math><mi>x</mi></math>, units = </label>
+        <input id="triangle_x" class="triangle_x" type="number">
+
+        <br>
+
+        <label for="triangle_y"><math><mi>y</mi></math>, units = </label>
+        <input id="triangle_y" class="triangle_y" type="number">
+
+        <br>
+
+        <label for="full_texture_width">Full texture width, pixels = </label>
+        <input id="full_texture_width" class="full_texture_width">
+
+        <br><br>
+
+        <label for="target_width_definition_method">Define target width using</label>
+        <select id="target_width_definition_method" class="target_width_definition_method" onchange="twdm_changed()">
+            <option value="pixels">desired texture width (pixels)</option>
+            <option value="tiles">full texture tiles/desired tiles</option>
+            <option value="fraction">width fraction (delta U)</option>
+        </select>
+
+        <hr>
+
+        <div class="twdm-pixels">
+            <label for="twdm-targetwidth-pixels">Target texture width, pixels</label>
+            <input id="twdm-targetwidth-pixels" class="twdm-targetwidth-pixels" type="number">
+        </div>
+
+        <div class="twdm-tiles" style="display: none;">
+            <label for="twdm-fullwidth-tiles">The entire texture is this many tiles wide: </label>
+            <input id="twdm-fullwidth-tiles" class="twdm-fullwidth-tiles" type="number">
+
+            <br>
+
+            <label for="twdm-targetwidth-tiles">I want this many tiles to be displayed:</label>
+            <input id="twdm-targetwidth-tiles" class="twdm-targetwidth-tiles" type="number">
+        </div>
+
+        <div class="twdm-fraction" style="font-size: 250%; display: none;">
+            <label for="twdm-fraction-input">
+                <math>
+                    <mfrac>
+                        <mrow><mo>Target width</mo></mrow>
+                        <mrow><mo>Full texture width</mo></mrow>
+                    </mfrac>
+                    <mo>=</mo>
+                </math>
+            </label>
+            <input id="twdm-fraction-input" class="twdm-fraction-input" type="number">
+        </div>
+
+        <hr>
+
+        <button class="calculate_btn" onclick="calculate()">Calculate!</button>
+        <p class="result_display"></p>
+
+        <script src="angtexscale/script.js" defer></script>
+    </body>
+</html>
