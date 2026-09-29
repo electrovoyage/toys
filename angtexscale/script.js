@@ -41,21 +41,23 @@ function calculateTextureScale(x, y, W, k) {
     /*
         Seeing as how texture scale is units/texel, it can be expressed
         as Sz = z / Pz, where z is the hypotenuse (in units) and Pz is the 
-        amount of pixels wide it is.
+        amount of texels wide it is.
 
         Following Pythagoras' theorem, z = sqrt(x^2 + y^2) where x and y are
         the sides of the right triangle.
 
         If we take the width of the texture applied to the diagonal face
-        as W pixels with a fraction k of it visible, the visible part of
-        the texture in pixels Pz = Wk.
+        as W texels with a fraction k of it visible, the visible part of
+        the texture in texels Pz = Wk.
 
         Substituting variables into the topmost expression, we get
                             Sz = sqrt(x^2 + y^2)/Wk
     */
-    return Math.sqrt(
-        Math.pow(x, 2) + Math.pow(y, 2)
-    ) / (W * k);
+    return (
+        Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
+        /
+        (W * k)
+    );
 }
 
 function calculate() {
@@ -64,8 +66,14 @@ function calculate() {
 
     let W = document.querySelector(".full_texture_width").value;
     let k = getTextureScale(W);
+    let hypot = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
-    result_display.innerHTML = `I think that would be a texture scale of ${calculateTextureScale(x, y, W, k)}`;
+    result_display.innerHTML = `Texture scale: ${calculateTextureScale(x, y, W, k)}<br>
+        <math><mi>z</mi><mo> = ${hypot}</mo></math>units<br>
+        <math><mi>sin</mi><mi>&alpha;</mi><mo>=</mo><mi>cos</mi><mi>&beta;</mi><mo> = ${x / hypot} </mo></math><br>
+        <math><mi>cos</mi><mi>&alpha;</mi><mo>=</mo><mi>sin</mi><mi>&beta;</mi><mo> = ${y / hypot} </mo></math><br>
+        <math><mo>&ang;</mo><mi>&alpha;</mi><mo> = ${Math.asin(x / hypot) * (180 / Math.PI)}&deg;</mo></math><br>
+        <math><mo>&ang;</mo><mi>&beta;</mi><mo> = ${Math.acos(x / hypot) * (180 / Math.PI)}&deg;</mo></math><br>`;
 }
 
 twdm_changed()

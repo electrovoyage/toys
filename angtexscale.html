@@ -11,6 +11,9 @@
     <body>
         <h1>Angled texture scale</h1>
 
+        <img src="./angtexscale/triangle.png" alt="Right triangle with hypotenuse z, sides x, y and angles &alpha; and &beta;, where &beta; is opposite y and &alpha; is opposite x">
+        <br>
+
         <label for="triangle_x"><math><mi>x</mi></math>, units = </label>
         <input id="triangle_x" class="triangle_x" type="number">
 
@@ -19,6 +22,10 @@
         <label for="triangle_y"><math><mi>y</mi></math>, units = </label>
         <input id="triangle_y" class="triangle_y" type="number">
 
+        <br>
+
+        <br>
+        <img src="./angtexscale/width.png" alt="Hammer's 'Face Edit Sheet' window, highlighting the width: right above the 'All Textures' dropdown it's the number to the left of the X">
         <br>
 
         <label for="full_texture_width">Full texture width, pixels = </label>
@@ -30,17 +37,23 @@
         <select id="target_width_definition_method" class="target_width_definition_method" onchange="twdm_changed()">
             <option value="pixels">desired texture width (pixels)</option>
             <option value="tiles">full texture tiles/desired tiles</option>
-            <option value="fraction">width fraction (delta U)</option>
+            <option value="fraction">width fraction (&Delta;U)</option>
         </select>
 
         <hr>
 
         <div class="twdm-pixels">
-            <label for="twdm-targetwidth-pixels">Target texture width, pixels</label>
+            <img src="./angtexscale/fullwidth.png" alt="64x128 tiles, the texture of which is 512px wide. If we want one tile, that would be a target width of 256px and a total width of 512px.">
+            <br>
+
+            <label for="twdm-targetwidth-pixels">Target texture width (blue), pixels: </label>
             <input id="twdm-targetwidth-pixels" class="twdm-targetwidth-pixels" type="number">
         </div>
 
         <div class="twdm-tiles" style="display: none;">
+            <img src="./angtexscale/fulltiles.png" alt="64x128 tiles. If we want one tile, that is a total width in tiles of 2 and a target width of 1.">
+            <br>
+
             <label for="twdm-fullwidth-tiles">The entire texture is this many tiles wide: </label>
             <input id="twdm-fullwidth-tiles" class="twdm-fullwidth-tiles" type="number">
 
@@ -51,11 +64,14 @@
         </div>
 
         <div class="twdm-fraction" style="font-size: 250%; display: none;">
+            <img src="./angtexscale/fraction.png" alt="64x128 tiles. If we only want one tile, y (desired tile count) is 1 and x (total tile count) is 2, giving a fraction of y/x = 0.5.">
+            <br>
+
             <label for="twdm-fraction-input">
                 <math>
                     <mfrac>
-                        <mrow><mo>Target width</mo></mrow>
-                        <mrow><mo>Full texture width</mo></mrow>
+                        <mrow><mi>y</mi></mrow>
+                        <mrow><mi>x</mi></mrow>
                     </mfrac>
                     <mo>=</mo>
                 </math>
@@ -67,6 +83,14 @@
 
         <button class="calculate_btn" onclick="calculate()">Calculate!</button>
         <p class="result_display"></p>
+
+        <p>
+            Paste the calculated texture scale value into the X texture scale of the angled surface.
+            Do with all of the other stats as you wish.
+            <br><br>
+            If anything reports as <code>NaN</code> or <code>Infinity</code> when it shouldn't, send the values you tested with
+            to AT electrovoyage DOT on Discord.
+        </p>
 
         <script src="angtexscale/script.js" defer></script>
     </body>
