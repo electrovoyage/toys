@@ -6,6 +6,7 @@ const twdm_options = [
 
 const twdm_dropdown = document.querySelector(".target_width_definition_method");
 const result_display = document.querySelector(".result_display");
+const precision = 5;
 
 function twdm_changed() {
     twdm_options.forEach(element => {
@@ -69,11 +70,11 @@ function calculate() {
     let hypot = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
     result_display.innerHTML = `Texture scale: ${calculateTextureScale(x, y, W, k)}<br>
-        <math><mi>z</mi><mo> = ${hypot}</mo></math>units<br>
-        <math><mi>sin</mi><mi>&alpha;</mi><mo>=</mo><mi>cos</mi><mi>&beta;</mi><mo> = ${x / hypot} </mo></math><br>
-        <math><mi>cos</mi><mi>&alpha;</mi><mo>=</mo><mi>sin</mi><mi>&beta;</mi><mo> = ${y / hypot} </mo></math><br>
-        <math><mo>&ang;</mo><mi>&alpha;</mi><mo> = ${Math.asin(x / hypot) * (180 / Math.PI)}&deg;</mo></math><br>
-        <math><mo>&ang;</mo><mi>&beta;</mi><mo> = ${Math.acos(x / hypot) * (180 / Math.PI)}&deg;</mo></math><br>`;
+        <math><mi>z</mi><mo> = ${hypot.toFixed(precision)}</mo></math>units<br>
+        <math><mi>sin</mi><mi>&alpha;</mi><mo>=</mo><mi>cos</mi><mi>&beta;</mi><mo> = ${(x / hypot).toFixed(precision)} </mo></math><br>
+        <math><mi>cos</mi><mi>&alpha;</mi><mo>=</mo><mi>sin</mi><mi>&beta;</mi><mo> = ${(y / hypot).toFixed(precision)} </mo></math><br>
+        <math><mo>&ang;</mo><mi>&alpha;</mi><mo> = ${(Math.asin(x / hypot) * (180 / Math.PI)).toFixed(precision)}&deg;</mo></math><br>
+        <math><mo>&ang;</mo><mi>&beta;</mi><mo> = ${(Math.acos(x / hypot) * (180 / Math.PI)).toFixed(precision)}&deg;</mo></math><br>`;
 }
 
 twdm_changed()
