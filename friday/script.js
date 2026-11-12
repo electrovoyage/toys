@@ -28,32 +28,47 @@ function postfix(day) {
     }
 }
 
-const date = new Date(Date.now())
+function calculateFriday() {
 
-const script_status_label = document.querySelector('.script-status')
-const script_date_label = document.querySelector('.script-date')
+    const date = new Date(Date.now())
 
-year = date.getFullYear()
-shouldbreak = false
-currentmonth = date.getMonth()
+    const script_status_label = document.querySelector('.script-status')
+    const script_date_label = document.querySelector('.script-date')
 
-msnow = Date.now()
+    year = date.getFullYear()
+    shouldbreak = false
+    currentmonth = date.getMonth()
 
-for (time = msnow + MILLISECONDS_IN_A_DAY; time <= msnow + 366 * MILLISECONDS_IN_A_DAY; time += MILLISECONDS_IN_A_DAY) {
-    dt = new Date(time)
-    month = dt.getMonth()
-    year = dt.getFullYear()
-    shouldbreak = dt.getDay() == 5 && dt.getDate() == 13
-    if (shouldbreak) {break}
+    msnow = Date.now()
+
+    // Currently this finds THIS month's Friday the 13th if it hasn't
+    // happened yet. FIX THIS!!!
+    for (time = msnow + MILLISECONDS_IN_A_DAY; time <= msnow + 366 * MILLISECONDS_IN_A_DAY; time += MILLISECONDS_IN_A_DAY) {
+        dt = new Date(time)
+        month = dt.getMonth()
+        year = dt.getFullYear()
+        shouldbreak = dt.getDay() == 5 && dt.getDate() == 13
+        if (shouldbreak) { break }
+    }
+
+    if (!shouldbreak) {
+        //throw new Error('failed to find next Friday the 13th')
+        script_status_label.innerHTML = "Failed to find next Friday the 13th!"
+        script_date_label.innerHTML = "electrovoyage's code might be crappy. Please report this!"
+        return
+    }
+
+    script_date_label.innerHTML = `${MONTHS[month]} of ${year}`
 }
 
-if (!shouldbreak) {
-    //throw new Error('failed to find next Friday the 13th')
-    script_status_label.innerHTML = "Failed to find next Friday the 13th!"
-    script_date_label.innerHTML = "electrovoyage's code might be crappy. Please report this!"
-    return
+function beginCalculateFriday() {
+    try {
+        calculateFriday()
+    } catch(e) {
+        script_status_label.innerHTML = "Failed to find next Friday the 13th!"
+        script_date_label.innerHTML = "electrovoyage's code broke. Please report the error you see in F12 > Console!"
+        console.error(e)
+    }
 }
 
-script_date_label.innerHTML = `${MONTHS[month]} of ${year}`
-
-window.onload = onloaded
+window.onload = beginCalculateFriday
